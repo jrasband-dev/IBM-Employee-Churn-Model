@@ -15,7 +15,7 @@ sl = pd.read_excel('Preprocessed IBM Data.xlsm')
 data = sl.copy()
 
 
-'''MASK LOAN AND BORROWER ID'''
+'''MASK Employee Number'''
 data['EmployeeNumber'] = np.arange(len(data))
 
 # data.to_excel(directory + '/'+'LoanData.xlsx')
