@@ -22,7 +22,7 @@ sns.set()
 pd.options.display.max_rows = None
 
 '''OPEN THE FILES'''
-directory = 'C:\\Users\\jr2sw\\PycharmProjects\\Skills'
+directory = 'C:\\'
 inputs_train = pd.read_csv(directory + '/' + 'inputs_train', index_col=0)
 targets_train = pd.read_csv(directory + '/' + 'targets_train',index_col=0, header=None)
 inputs_test = pd.read_csv(directory + '/' + 'inputs_test', index_col=0)
