@@ -23,10 +23,10 @@ pd.options.display.max_rows = None
 
 '''OPEN THE FILES'''
 directory = 'C:\\'
-inputs_train = pd.read_csv(directory + '/' + 'inputs_train', index_col=0)
-targets_train = pd.read_csv(directory + '/' + 'targets_train',index_col=0, header=None)
-inputs_test = pd.read_csv(directory + '/' + 'inputs_test', index_col=0)
-targets_test = pd.read_csv(directory + '/' + 'targets_test', index_col=0)
+inputs_train = pd.read_csv('inputs_train', index_col=0)
+targets_train = pd.read_csv('targets_train',index_col=0, header=None)
+inputs_test = pd.read_csv('inputs_test', index_col=0)
+targets_test = pd.read_csv('targets_test', index_col=0)
 
 targets_test['EmployeeNumber'] = inputs_test['EmployeeNumber']
 
@@ -39,8 +39,6 @@ ref_categories = [ 'AGE 31-60'
                     ,'Job Satisfaction Survey Response 1'
                     ,'Single'
                     ,'NumCompaniesWorkedAt 0-4'
-                    # ,'Years At Company >=31'
-                    # ,'Years In Current Role >=13'
                     ,'Monthly Income 0-4000']
 
 
@@ -71,13 +69,6 @@ inputs_train_w_ref_cat = inputs_train.loc[:, ['AGE 18-30'
                                             ,'NumCompaniesWorkedAt 7-8'
                                             ,'NumCompaniesWorkedAt >=9'
                                             ,'Overtime'
-                                            # ,'Years At Company 0-5'
-                                            # ,'Years At Company 6-15'
-                                            # ,'Years At Company 16-30'
-                                            # ,'Years At Company >=31'
-                                            # ,'Years In Current Role 0-6'
-                                            # ,'Years In Current Role 7-12'
-                                            # ,'Years In Current Role >=13'
                                              ,'Monthly Income 0-4000'
                                              ,'Monthly Income 4001-6000'
                                              ,'Monthly Income 6001-8000'
@@ -177,13 +168,6 @@ inputs_test_w_ref_cat = inputs_test.loc[:, ['AGE 18-30'
                                             ,'NumCompaniesWorkedAt 7-8'
                                             ,'NumCompaniesWorkedAt >=9'
                                             ,'Overtime'
-                                            # ,'Years At Company 0-5'
-                                            # ,'Years At Company 6-15'
-                                            # ,'Years At Company 16-30'
-                                            # ,'Years At Company >=31'
-                                            # ,'Years In Current Role 0-6'
-                                            # ,'Years In Current Role 7-12'
-                                            # ,'Years In Current Role >=13'
                                              ,'Monthly Income 0-4000'
                                              ,'Monthly Income 4001-6000'
                                              ,'Monthly Income 6001-8000'
@@ -200,7 +184,7 @@ y_hat_test = reg2.model.predict(inputs_test)
 # print(y_hat_test)
 y_hat_test_proba = reg2.model.predict_proba(inputs_test)
 # print(y_hat_test_proba)
-y_hat_test_proba = y_hat_test_proba[:][:, 1]  # Change 0 back to a 1 to get the probability of No Attrition
+y_hat_test_proba = y_hat_test_proba[:][:, 1] 
 targets_test_temp = targets_test
 targets_test_temp.reset_index(drop=True, inplace=True)
 actual_predicted_probs = pd.concat([targets_test_temp, pd.DataFrame(y_hat_test_proba)], axis=1)
