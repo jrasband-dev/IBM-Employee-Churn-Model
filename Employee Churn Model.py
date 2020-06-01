@@ -22,7 +22,6 @@ sns.set()
 pd.options.display.max_rows = None
 
 '''OPEN THE FILES'''
-directory = 'C:\\'
 inputs_train = pd.read_csv('inputs_train', index_col=0)
 targets_train = pd.read_csv('targets_train',index_col=0, header=None)
 inputs_test = pd.read_csv('inputs_test', index_col=0)
@@ -32,13 +31,14 @@ targets_test['EmployeeNumber'] = inputs_test['EmployeeNumber']
 
 '''STATIC DEFINITIONS'''
 
-ref_categories = [ 'AGE 31-60'
+ref_categories = ['AGE 31-60'
                     ,'Freq_Bus_Travel'
-                    ,'Commute Distance >=11mi'
+                    ,'Commute Distance >=10mi'
                     ,'EnvironmentSatisfaction Survey Response 1'
                     ,'Job Satisfaction Survey Response 1'
                     ,'Single'
-                    ,'NumCompaniesWorkedAt 0-4'
+                    ,'NumCompaniesWorkedAt >=3'
+                    , 'Total Working Years 8-11'
                     ,'Monthly Income 0-4000']
 
 
@@ -46,33 +46,35 @@ targets_train2 = targets_train.copy()
 targets_train2['EmployeeNumber'] = inputs_train['EmployeeNumber']
 '''REMOVE REFERENCE CATEGORIES'''
 inputs_train_w_ref_cat = inputs_train.loc[:, ['AGE 18-30'
-                                            ,'AGE 31-60'
-                                            ,'Freq_Bus_Travel'
-                                            ,'Rare_Bus_Travel'
-                                            ,'Non-Travel'
-                                            ,'Commute Distance 0-5mi'
-                                            ,'Commute Distance 6-10mi'
-                                            ,'Commute Distance >=11mi'
-                                            ,'EnvironmentSatisfaction Survey Response 1'
-                                            ,'EnvironmentSatisfaction Survey Response 2'
-                                            ,'EnvironmentSatisfaction Survey Response 3'
-                                            ,'EnvironmentSatisfaction Survey Response 4'
-                                            ,'Job Satisfaction Survey Response 1'
-                                            ,'Job Satisfaction Survey Response 2'
-                                            ,'Job Satisfaction Survey Response 3'
-                                            ,'Job Satisfaction Survey Response 4'
-                                            ,'Single'
-                                            ,'Married'
-                                            ,'Divorced'
-                                            ,'NumCompaniesWorkedAt 0-4'
-                                            ,'NumCompaniesWorkedAt 5-6'
-                                            ,'NumCompaniesWorkedAt 7-8'
-                                            ,'NumCompaniesWorkedAt >=9'
-                                            ,'Overtime'
-                                             ,'Monthly Income 0-4000'
-                                             ,'Monthly Income 4001-6000'
-                                             ,'Monthly Income 6001-8000'
-                                             ,'Monthly Income >=8001'
+                                                ,'AGE 31-60'
+                                                ,'Total Working Years 0-7'
+                                                ,'Total Working Years 8-11'
+                                                ,'Total Working Years >=12'
+                                                ,'Freq_Bus_Travel'
+                                                ,'Rare_Bus_Travel'
+                                                ,'Non-Travel'
+                                                ,'Commute Distance 0-3mi'
+                                                ,'Commute Distance 3-9mi'
+                                                ,'Commute Distance >=10mi'
+                                                ,'EnvironmentSatisfaction Survey Response 1'
+                                                ,'EnvironmentSatisfaction Survey Response 2'
+                                                ,'EnvironmentSatisfaction Survey Response 3'
+                                                ,'EnvironmentSatisfaction Survey Response 4'
+                                                ,'Job Satisfaction Survey Response 1'
+                                                ,'Job Satisfaction Survey Response 2'
+                                                ,'Job Satisfaction Survey Response 3'
+                                                ,'Job Satisfaction Survey Response 4'
+                                                ,'Single'
+                                                ,'Married'
+                                                ,'Divorced'
+                                                ,'Is Male'
+                                                ,'NumCompaniesWorkedAt 0-2'
+                                                ,'NumCompaniesWorkedAt >=3'
+                                                ,'Overtime'
+                                                ,'Monthly Income 0-4000'
+                                                ,'Monthly Income 4001-6000'
+                                                ,'Monthly Income 6001-8000'
+                                                ,'Monthly Income >=8001'
                                               ]]
 
 inputs_train = inputs_train_w_ref_cat.drop(ref_categories, axis=1)
@@ -145,33 +147,35 @@ summary_table.to_excel(directory + '/' + 'ModelSummary.xlsx')
 
 '''VALIDATION'''
 inputs_test_w_ref_cat = inputs_test.loc[:, ['AGE 18-30'
-                                            ,'AGE 31-60'
-                                            ,'Freq_Bus_Travel'
-                                            ,'Rare_Bus_Travel'
-                                            ,'Non-Travel'
-                                            ,'Commute Distance 0-5mi'
-                                            ,'Commute Distance 6-10mi'
-                                            ,'Commute Distance >=11mi'
-                                            ,'EnvironmentSatisfaction Survey Response 1'
-                                            ,'EnvironmentSatisfaction Survey Response 2'
-                                            ,'EnvironmentSatisfaction Survey Response 3'
-                                            ,'EnvironmentSatisfaction Survey Response 4'
-                                            ,'Job Satisfaction Survey Response 1'
-                                            ,'Job Satisfaction Survey Response 2'
-                                            ,'Job Satisfaction Survey Response 3'
-                                            ,'Job Satisfaction Survey Response 4'
-                                            ,'Single'
-                                            ,'Married'
-                                            ,'Divorced'
-                                            ,'NumCompaniesWorkedAt 0-4'
-                                            ,'NumCompaniesWorkedAt 5-6'
-                                            ,'NumCompaniesWorkedAt 7-8'
-                                            ,'NumCompaniesWorkedAt >=9'
-                                            ,'Overtime'
-                                             ,'Monthly Income 0-4000'
-                                             ,'Monthly Income 4001-6000'
-                                             ,'Monthly Income 6001-8000'
-                                             ,'Monthly Income >=8001']]
+                                                ,'AGE 31-60'
+                                                ,'Total Working Years 0-7'
+                                                ,'Total Working Years 8-11'
+                                                ,'Total Working Years >=12'
+                                                ,'Freq_Bus_Travel'
+                                                ,'Rare_Bus_Travel'
+                                                ,'Non-Travel'
+                                                ,'Commute Distance 0-3mi'
+                                                ,'Commute Distance 3-9mi'
+                                                ,'Commute Distance >=10mi'
+                                                ,'EnvironmentSatisfaction Survey Response 1'
+                                                ,'EnvironmentSatisfaction Survey Response 2'
+                                                ,'EnvironmentSatisfaction Survey Response 3'
+                                                ,'EnvironmentSatisfaction Survey Response 4'
+                                                ,'Job Satisfaction Survey Response 1'
+                                                ,'Job Satisfaction Survey Response 2'
+                                                ,'Job Satisfaction Survey Response 3'
+                                                ,'Job Satisfaction Survey Response 4'
+                                                ,'Single'
+                                                ,'Married'
+                                                ,'Divorced'
+                                                ,'Is Male'
+                                                ,'NumCompaniesWorkedAt 0-2'
+                                                ,'NumCompaniesWorkedAt >=3'
+                                                ,'Overtime'
+                                                ,'Monthly Income 0-4000'
+                                                ,'Monthly Income 4001-6000'
+                                                ,'Monthly Income 6001-8000'
+                                                ,'Monthly Income >=8001']]
 
 # print(inputs_test_w_ref_cat)
 
@@ -192,7 +196,7 @@ actual_predicted_probs.columns = ['Attrition', 'EmployeeNumber', 'y_hat_test_pro
 print(actual_predicted_probs)
 
 '''ACCURACY OF TEST PROBABILITY'''
-tr = 0.90
+tr = 0.80
 actual_predicted_probs['y_hat_test'] = np.where(actual_predicted_probs['y_hat_test_proba'] > tr, 1, 0)
 print(pd.crosstab(actual_predicted_probs['Attrition'], actual_predicted_probs['y_hat_test'], rownames=['Actual'],
                   colnames=['Predicted']))
