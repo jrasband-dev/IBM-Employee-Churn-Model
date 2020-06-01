@@ -15,11 +15,11 @@ conn = pyodbc.connect(r'DRIVER={ODBC Driver 13 for SQL Server};' +
                       ('SERVER={server};' +
                        '{port};' +
                        'DATABASE={database};' +
-                       'Trusted_Connection={Trusted_Connection};').format(server='LAPTOP-NVA5OD46'
+                       'Trusted_Connection={Trusted_Connection};').format(server=''
                                                                         , port = 1443
-                                                                        , database = 'TheCrew'
+                                                                        , database = ''
                                                                         , Trusted_Connection = 'yes'))
-directory = 'C:\\Users\\jr2sw\\PycharmProjects\\Skills'
+directory = 'C:\\'
 sql = '''
 
 
