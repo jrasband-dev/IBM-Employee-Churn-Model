@@ -81,8 +81,6 @@ inputs_train = inputs_train_w_ref_cat.drop(ref_categories, axis=1)
 '''RUN REGRESSION AND PLACE INTO A SUMMARY TABLE'''
 reg = LogisticRegression()
 reg.fit(inputs_train, targets_train)
-# print(reg.intercept_)
-# print(reg.coef_)
 feature_name = inputs_train.columns.values
 summary_table = pd.DataFrame(columns=['feature_name'], data=feature_name)
 summary_table['Coefficients'] = np.transpose(reg.coef_)
@@ -92,8 +90,6 @@ summary_table = summary_table.sort_index()
 print(summary_table)
 
 '''BUILD LOGISTICS MODEL'''
-
-
 class LogisticRegression_with_p_values:
     def __init__(self, *args, **kwargs):
         self.model = linear_model.LogisticRegression(*args, **kwargs, max_iter=100000)
@@ -123,27 +119,7 @@ p_values = reg2.p_values
 p_values = np.append(np.nan, np.array(p_values))
 summary_table['p_values'] = p_values
 print(summary_table)
-summary_table.to_excel(directory + '/' + 'ModelSummary.xlsx')
-
-# plt.figure(1, figsize=(4, 3))
-# plt.clf()
-# plt.scatter(inputs_train, targets_train, color='black', zorder=20)
-# X_test = np.linspace(-5, 10, 300)
-# loss = expit(X_test * reg.coef_ + reg.intercept_).ravel()
-# plt.plot(X_test, loss, color='red', linewidth=3)
-# plt.plot(X_test, reg.coef_ * X_test + reg.intercept_, linewidth=1)
-# plt.axhline(.5, color='.5')
-#
-# plt.ylabel('y')
-# plt.xlabel('X')
-# plt.xticks(range(-5, 10))
-# plt.yticks([0, 0.5, 1])
-# plt.ylim(-.25, 1.25)
-# plt.xlim(-4, 10)
-# plt.legend(('Logistic Regression Model', 'Linear Regression Model'),
-#            loc="lower right", fontsize='small')
-# plt.tight_layout()
-# plt.show()
+summary_table.to_excel('ModelSummary.xlsx')
 
 '''VALIDATION'''
 inputs_test_w_ref_cat = inputs_test.loc[:, ['AGE 18-30'
@@ -177,7 +153,7 @@ inputs_test_w_ref_cat = inputs_test.loc[:, ['AGE 18-30'
                                                 ,'Monthly Income 6001-8000'
                                                 ,'Monthly Income >=8001']]
 
-# print(inputs_test_w_ref_cat)
+
 
 inputs_test = inputs_test_w_ref_cat.drop(ref_categories, axis=1)
 inputs_train = inputs_test_w_ref_cat.drop(ref_categories, axis=1)
@@ -185,9 +161,7 @@ print(inputs_test.info())
 
 '''TEST DATASET PROBABILITY OF DEFAULT'''
 y_hat_test = reg2.model.predict(inputs_test)
-# print(y_hat_test)
 y_hat_test_proba = reg2.model.predict_proba(inputs_test)
-# print(y_hat_test_proba)
 y_hat_test_proba = y_hat_test_proba[:][:, 1] 
 targets_test_temp = targets_test
 targets_test_temp.reset_index(drop=True, inplace=True)
@@ -200,7 +174,6 @@ tr = 0.80
 actual_predicted_probs['y_hat_test'] = np.where(actual_predicted_probs['y_hat_test_proba'] > tr, 1, 0)
 print(pd.crosstab(actual_predicted_probs['Attrition'], actual_predicted_probs['y_hat_test'], rownames=['Actual'],
                   colnames=['Predicted']))
-# print(pd.crosstab(actual_predicted_probs['GoodLoan'], actual_predicted_probs['y_hat_test'], rownames=['Actual'], colnames=['Predicted'])/actual_predicted_probs.shape[0])
 print((pd.crosstab(actual_predicted_probs['Attrition'], actual_predicted_probs['y_hat_test'], rownames=['Actual'],
                    colnames=['Predicted']) / actual_predicted_probs.shape[0]).iloc[0, 0]
       + (pd.crosstab(actual_predicted_probs['Attrition'], actual_predicted_probs['y_hat_test'], rownames=['Actual'],
