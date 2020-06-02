@@ -11,19 +11,15 @@ from sklearn.linear_model import LogisticRegression
 from sklearn import metrics
 
 sl = pd.read_excel('Preprocessed IBM Data.xlsm')
-# print(sl.info())
 data = sl.copy()
 
 
 '''MASK Employee Number'''
 data['EmployeeNumber'] = np.arange(len(data))
 
-# data.to_excel(directory + '/'+'LoanData.xlsx')
-
 inputs_train, inputs_test, targets_train, targets_test = train_test_split(data.drop('Attrition', axis=1),
                                                                           data['Attrition'], test_size=0.2,
                                                                           random_state=42)
-
 '''Export to CSV'''
 # print(inputs_train)
 inputs_train.to_csv('inputs_train')
