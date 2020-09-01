@@ -5,4 +5,4 @@ This project contains a logistic regression model with variables pulled from the
 
 This repository includes both the raw and preprocessed data used in the model. 
 
-The results show that the model is approximately 76.2% accurate (with a confidence interval of 80%) in predicting employee attrition behavior. 
+The results show that the model is approximately 76.2% accurate (with a threshold of 80%) in predicting employee attrition behavior. 
